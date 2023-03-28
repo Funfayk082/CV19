@@ -31,6 +31,52 @@ namespace CV19.ViewModels
 
         #endregion
 
+        #region Предложения
+        private string _FS;
+        private string _SS;
+        private string _Result;
+        private double _V;
+
+        public string FS
+        {
+            get => _FS;
+            set
+            {
+                Set(ref _FS, value);
+            }
+        }
+
+        public string SS
+        {
+            get => _SS;
+            set
+            {
+                Set(ref _SS, value);
+            }
+        }
+
+        public string Result
+        {
+            get => _Result;
+            set
+            {
+                Set(ref _Result, value);
+            }
+        }
+
+        public double V
+        {
+            get => _V;
+            set
+            {
+                Set(ref _V, value);
+            }
+        }
+
+
+
+        #endregion
+
         #region Команды
 
         #region CloseApplicationCommand
@@ -41,7 +87,50 @@ namespace CV19.ViewModels
             Application.Current.Shutdown();
         }
 
-        private bool CanCloseApplicationCommandExecute(object p) => true; 
+        private bool CanCloseApplicationCommandExecute(object p) => true;
+        #endregion
+
+        #region BCounterCommand
+        public ICommand BCounterCommand { get; }
+        private void OnBCounterCommandExecuted(object p)
+        {
+            int first_counter = 0;
+            int first_b_counter = 0;
+
+            for (int i = 0; i<FS.ToString().Length; i++)
+            {
+                first_counter++;
+                if (FS[i].ToString().Equals("б")) first_b_counter++;
+            }
+
+            int second_counter = 0;
+            int second_b_counter = 0;
+
+            for (int i = 0; i < SS.ToString().Length; i++)
+            {
+                second_counter++;
+                if (SS[i].ToString().Equals("б")) second_b_counter++;
+            }
+
+            if ((100 * first_b_counter / first_counter) > (100 * second_b_counter / second_counter))
+            {
+                V = (100 * first_b_counter / first_counter);
+                Result = FS;
+            }
+            else if ((100 * first_b_counter / first_counter) < (100 * second_b_counter / second_counter))
+            {
+                V = (100 * second_b_counter / second_counter);
+                Result = SS;
+            }
+            else
+            {
+                V = 0;
+                Result = "";
+            }
+        }
+
+        private bool CanBCounterCommandExecute(object p) => true;
+
         #endregion
 
         #endregion
@@ -51,6 +140,7 @@ namespace CV19.ViewModels
             #region Команды
 
             CloseApplicationCommand = new LambdaCommand(OnCloseApplicationCommandExecuted, CanCloseApplicationCommandExecute);
+            BCounterCommand = new LambdaCommand(OnBCounterCommandExecuted, CanBCounterCommandExecute);
 
             #endregion
         }

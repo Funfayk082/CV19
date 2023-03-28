@@ -10,50 +10,52 @@
     <Window.DataContext>
         <vm:MainWindowViewModel/>
     </Window.DataContext>
-    <DockPanel>
-        <Menu DockPanel.Dock="Top">
-            <MenuItem Header="Файл">
-                <MenuItem Header="Выход" Command="{Binding CloseApplicationCommand}"></MenuItem>
-                <MenuItem Header="Вход"></MenuItem>
-            </MenuItem>
-            <MenuItem Header="Помощь">
-                <MenuItem Header="О программе"></MenuItem>
-                <MenuItem Header="О нас"></MenuItem>
-            </MenuItem>
-        </Menu>
-        <StatusBar DockPanel.Dock="Bottom">
-            <StatusBarItem Width="150">
-                <TextBlock Text="Сделал: Зайцев Андрей"/>
-            </StatusBarItem>
-            <StatusBarItem>
-                <ProgressBar Width="120" Height="14" Value="30"/>
-            </StatusBarItem>
-        </StatusBar>
-        <TabControl>
-            <TabItem Header="Вкладка 1">
-                <Grid>
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="63*"/>
-                        <RowDefinition Height="325*"/>
-                    </Grid.RowDefinitions>
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="157*"/>
-                        <ColumnDefinition Width="637*"/>
-                    </Grid.ColumnDefinitions>
-                    <Rectangle Grid.Column="0" Grid.Row="0"
-                               Margin="7, 10"
-                               Fill="Blue" Stroke="Red" 
-                               StrokeThickness="3" 
-                               RadiusX="5" RadiusY="7"/>
-                    <Ellipse Grid.Column="1" Grid.Row="0"
-                             Fill="Red" Stroke="Blue"
-                             StrokeThickness="3"/>
-                    <GridSplitter Grid.Column="0" Grid.RowSpan="2"
-                                  HorizontalAlignment="Right"
-                                  Width="4"/>
-                </Grid>
-            </TabItem>
-            <TabItem Header="Вкладка 2"></TabItem>
-        </TabControl>
-    </DockPanel>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+        <Label Content="Введите первое предложение:" 
+               Grid.Column="0" Grid.Row="0" VerticalAlignment="Center"
+               HorizontalAlignment="Center"
+               Margin="0, 0, 0, 60"/>
+        <TextBox Text="{Binding FS}"
+                 VerticalAlignment="Center"
+                 HorizontalAlignment="Center"
+                 Grid.Column="0" Grid.Row="0"
+                 Height="20" Width="300"/>
+        <Label Content="Введите второе предложение:" 
+               Grid.Column="1" Grid.Row="0" VerticalAlignment="Center"
+               HorizontalAlignment="Center"
+               Margin="0, 0, 0, 60"/>
+        <TextBox Text="{Binding SS}"
+                 VerticalAlignment="Center"
+                 HorizontalAlignment="Center"
+                 Grid.Column="1" Grid.Row="0"
+                 Height="20" Width="300"/>
+        <Button Grid.ColumnSpan="2" Grid.Row="1"
+                Content="Вывести результат"
+                Height="50" Width="150" Margin="0, 0, 0, 150"
+                Command="{Binding BCounterCommand}"/>
+        <TextBox Text="{Binding Result}"
+                 Grid.ColumnSpan="2" Grid.Row="1"
+                 Height="20" MinWidth="300"
+                 VerticalAlignment="Center"
+                 HorizontalAlignment="Center"
+                 TextAlignment="Center"/>
+
+        <Label Content="Доля буквы б:" 
+               Grid.ColumnSpan="2" Grid.Row="1" VerticalAlignment="Bottom"
+               HorizontalAlignment="Center"
+               Margin="0, 0, 0, 65"/>
+        <ProgressBar Value="{Binding V}"
+                     Grid.ColumnSpan="2" Grid.Row="1"
+                     VerticalAlignment="Bottom"
+                     HorizontalAlignment="Center"
+                     Width="300" Height="25" Margin="0, 0, 0, 40"/>
+    </Grid>
 </Window>
